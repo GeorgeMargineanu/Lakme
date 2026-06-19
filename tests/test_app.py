@@ -27,7 +27,8 @@ class SavrAppTests(unittest.TestCase):
         self.assertIn(b"LA<span>K</span>ME", home.data)
         self.assertIn("Hrănește-ți corpul".encode(), home.data)
         self.assertIn(b"images/venus_chef.png", home.data)
-        self.assertIn(b"images/recipes/tajine-halloumi-naut.jpg", home.data)
+        self.assertIn("🥘".encode(), home.data)
+        self.assertNotIn(b"images/recipes/", home.data)
         self.assertNotIn("🫠".encode(), home.data)
         self.assertNotIn("🔪".encode(), home.data)
 

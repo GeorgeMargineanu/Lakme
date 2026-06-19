@@ -35,9 +35,9 @@
   <div class="recipe-grid">
     {% for recipe in recipes %}
     <article class="recipe-card reveal" data-region="{{ recipe.region|lower }}" data-diet="{{ recipe.diet|lower }}">
-      <a class="card-visual {{ recipe.accent }}" href="{{ url_for('recipe_detail', slug=recipe.slug) }}">
+      <a class="card-visual emoji-visual {{ recipe.accent }}" href="{{ url_for('recipe_detail', slug=recipe.slug) }}">
         <span class="card-index">{{ '%02d'|format(loop.index) }}</span>
-        <img class="food-sticker" src="{{ url_for('static', filename=recipe.image) }}" alt="Ilustrație cu o pisică bucătar și {{ recipe.name|lower }}" width="448" height="448" loading="lazy" decoding="async">
+        <span class="food-emoji" role="img" aria-label="{{ recipe.name }}">{{ recipe.emoji }}</span>
         <span class="price-badge">$1</span>
       </a>
       <div class="card-meta"><span>{{ recipe.region }}</span><span>·</span><span>{{ recipe.cuisine }}</span><span>·</span><span>{{ recipe.nutrition }}</span></div>

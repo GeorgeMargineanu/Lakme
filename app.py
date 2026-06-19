@@ -63,7 +63,6 @@ RECIPES = [
         "page_end": page_end,
         "nutrition": nutrition,
         "emoji": emoji,
-        "image": f"images/recipes/{slug}.jpg",
         "slug": slug,
         "diet": "Vegetariană",
         "portions": 8,

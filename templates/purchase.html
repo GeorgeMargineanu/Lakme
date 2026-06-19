@@ -4,7 +4,7 @@
 <section class="purchased shell">
   <div class="success reveal"><span>✓</span><div><p class="eyebrow">REȚETĂ DEBLOCATĂ</p><h1>Alegere bună, {{ order.name.split()[0] }}.</h1><p>Următoarea ta cină excelentă începe aici.</p></div><a class="print-button" href="{{ url_for('download_recipe', token=token) }}">Descarcă PDF-ul</a></div>
   <article class="recipe-sheet reveal">
-    <header><div><p class="eyebrow">{{ recipe.region }} · {{ recipe.cuisine }}</p><h2>{{ recipe.name }}</h2><p>{{ recipe.description }}</p></div><img class="sheet-sticker" src="{{ url_for('static', filename=recipe.image) }}" alt="" width="110" height="110"></header>
+    <header><div><p class="eyebrow">{{ recipe.region }} · {{ recipe.cuisine }}</p><h2>{{ recipe.name }}</h2><p>{{ recipe.description }}</p></div><span class="sheet-emoji">{{ recipe.emoji }}</span></header>
     <div class="sheet-grid">
       <section><h3>Ce primești</h3><ul><li><span></span>Gramaje totale pentru 8 porții</li><li><span></span>Gramaje și valori per porție</li><li><span></span>Peste 30 g proteine per porție</li></ul></section>
       <section><h3>Rețeta originală Lakme</h3><p>Documentul tău conține ingredientele, cantitățile, caloriile și toate indicațiile pentru preparare, exact în forma în care au fost create de Lakme.</p><a class="button dark" href="{{ url_for('download_recipe', token=token) }}">Descarcă rețeta PDF <span>↓</span></a></section>
