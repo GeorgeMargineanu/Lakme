@@ -98,28 +98,22 @@ class SavrAppTests(unittest.TestCase):
         self.assertEqual(login_page.status_code, 200)
         self.assertIn(b"noindex, nofollow, noarchive", login_page.data)
         self.assertNotIn(b"Venus", login_page.data)
-        with self.client.session_transaction() as session:
-            csrf_token = session["login_csrf"]
 
         invalid = self.client.post(
             "/login",
             data={
                 "username": "admin",
                 "password": "gresit",
-                "csrf_token": csrf_token,
                 "next": "/recipe/tajine-halloumi-naut",
             },
         )
         self.assertEqual(invalid.status_code, 401)
 
-        with self.client.session_transaction() as session:
-            csrf_token = session["login_csrf"]
         valid = self.client.post(
             "/login",
             data={
                 "username": "admin",
                 "password": "Venus",
-                "csrf_token": csrf_token,
                 "next": "/recipe/tajine-halloumi-naut",
             },
             follow_redirects=True,

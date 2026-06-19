@@ -8,7 +8,6 @@
     <h1>Mai întâi,<br>parola.</h1>
     <p>Lakme este momentan în testare.</p>
     {% if error %}<p class="form-error">{{ error }}</p>{% endif %}
-    <input type="hidden" name="csrf_token" value="{{ csrf_token }}">
     <input type="hidden" name="next" value="{{ destination }}">
     <label>Utilizator<input name="username" autocomplete="username" required autofocus></label>
     <label>Parolă<input type="password" name="password" autocomplete="current-password" required></label>

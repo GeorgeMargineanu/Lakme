@@ -160,11 +160,6 @@ def login():
 
     error = None
     if request.method == "POST":
-        submitted_token = request.form.get("csrf_token", "")
-        session_token = session.get("login_csrf", "")
-        if not session_token or not hmac.compare_digest(submitted_token, session_token):
-            abort(400)
-
         username_ok = hmac.compare_digest(
             request.form.get("username", ""), app.config["ACCESS_USERNAME"]
         )
@@ -181,11 +176,9 @@ def login():
             return redirect(destination)
         error = "Utilizator sau parolă incorectă."
 
-    csrf_token = secrets.token_urlsafe(24)
-    session["login_csrf"] = csrf_token
     destination = request.form.get("next", request.args.get("next", ""))
     return render_template(
-        "login.html", error=error, csrf_token=csrf_token, destination=destination
+        "login.html", error=error, destination=destination
     ), (401 if error else 200)
 
 
