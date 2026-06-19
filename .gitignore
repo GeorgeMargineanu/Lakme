@@ -1,0 +1,24 @@
+# Python
+__pycache__/
+*.py[cod]
+.pytest_cache/
+
+# Virtual environments
+.venv/
+venv/
+
+# Local data and secrets
+reviews.db
+tests/reviews-test.db
+.env
+.env.*
+
+# Editors and local agent state
+.vscode/
+.idea/
+.agents/
+.codex/
+
+# OS files
+.DS_Store
+Thumbs.db

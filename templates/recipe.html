@@ -1,0 +1,81 @@
+{% extends "base.html" %}
+{% block title %}{{ recipe.name }} — Lakme{% endblock %}
+{% block content %}
+<section class="detail shell">
+  <a class="back-link" href="{{ url_for('index') }}#recipes">← Înapoi la colecție</a>
+  <div class="detail-grid">
+    <div class="detail-art {{ recipe.accent }} reveal"><span>{{ recipe.emoji }}</span><small>REȚETELE<br>LUI LAKME</small></div>
+    <div class="detail-copy reveal">
+      <p class="eyebrow">{{ recipe.region }} · {{ recipe.cuisine }}</p>
+      <h1>{{ recipe.name }}</h1>
+      <p class="detail-lede">{{ recipe.description }}</p>
+      <div class="facts"><div><small>PORȚII</small><b>{{ recipe.portions }}</b></div><div><small>PROTEINE · ENERGIE</small><b>{{ recipe.nutrition }}</b></div><div><small>PREȚ</small><b>$1.00</b></div></div>
+      <div class="preview-box"><span>ÎN REȚETA ORIGINALĂ</span><p>Gramaje totale și per porție, informații nutriționale și indicațiile complete scrise de Lakme.</p></div>
+      <a class="button dark wide" href="{{ url_for('checkout', slug=recipe.slug) }}">Ia rețeta — $1 <span>→</span></a>
+      <p class="micro">Plată unică · Fără cont · PDF original de descărcat</p>
+    </div>
+  </div>
+</section>
+
+<section class="reviews-section" id="recenzii">
+  <div class="shell">
+    <div class="reviews-heading reveal">
+      <div>
+        <p class="eyebrow">GĂTIT DE COMUNITATE</p>
+        <h2>Păreri sincere.<br>Farfurii goale.</h2>
+      </div>
+      <div class="rating-summary">
+        <strong>{{ review_average if reviews else '—' }}</strong>
+        <div>
+          <span class="summary-stars" aria-label="Rating mediu {{ review_average }} din 5">★★★★★</span>
+          <p>{{ reviews|length }} {{ 'recenzie' if reviews|length == 1 else 'recenzii' }}</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="reviews-layout">
+      <div class="reviews-list reveal">
+        {% if review_added %}<p class="review-success">Mulțumim! Recenzia ta a fost publicată.</p>{% endif %}
+        {% if reviews %}
+          {% for review in reviews %}
+          <article class="review-card{% if loop.index > 5 %} review-extra{% endif %}"{% if loop.index > 5 %} hidden{% endif %}>
+            <header>
+              <div class="review-avatar">{{ review.name[0]|upper }}</div>
+              <div><h3>{{ review.name }}</h3><time datetime="{{ review.created_at }}">{{ review.created_at[8:10] }}.{{ review.created_at[5:7] }}.{{ review.created_at[0:4] }}</time></div>
+              <span class="review-stars" aria-label="{{ review.rating }} din 5 stele">{{ '★' * review.rating }}{{ '☆' * (5 - review.rating) }}</span>
+            </header>
+            <p>{{ review.comment }}</p>
+          </article>
+          {% endfor %}
+          {% if reviews|length > 5 %}
+          <button class="reviews-toggle" type="button" aria-expanded="false" data-more-count="{{ reviews|length - 5 }}">
+            <span>Vezi toate recenziile (+{{ reviews|length - 5 }})</span><b>↓</b>
+          </button>
+          {% endif %}
+        {% else %}
+          <div class="no-reviews"><span>☆</span><h3>Fii primul care lasă o recenzie.</h3><p>Ai gătit rețeta? Spune-le și celorlalți cum a ieșit.</p></div>
+        {% endif %}
+      </div>
+
+      <form class="review-form reveal" method="post" action="{{ url_for('recipe_detail', slug=recipe.slug) }}#recenzii">
+        <p class="eyebrow">AI GĂTIT REȚETA?</p>
+        <h2>Lasă o recenzie.</h2>
+        {% if review_error %}<p class="form-error">{{ review_error }}</p>{% endif %}
+        <fieldset>
+          <legend>Ratingul tău</legend>
+          <div class="star-picker">
+            {% for value in range(5, 0, -1) %}
+            <input type="radio" id="star-{{ value }}" name="rating" value="{{ value }}"{% if request.form.get('rating') == value|string %} checked{% endif %} required>
+            <label for="star-{{ value }}" title="{{ value }} stele">★</label>
+            {% endfor %}
+          </div>
+        </fieldset>
+        <label>Numele tău<input name="name" maxlength="40" required placeholder="Cum te cheamă?" value="{{ request.form.get('name', '') }}"></label>
+        <label>Comentariu<textarea name="comment" minlength="5" maxlength="800" required placeholder="Cum ți-a ieșit? Ai schimbat ceva?">{{ request.form.get('comment', '') }}</textarea></label>
+        <button class="button dark wide" type="submit">Publică recenzia <span>→</span></button>
+        <p class="micro">Recenzia va fi publică · Nu este necesar un cont</p>
+      </form>
+    </div>
+  </div>
+</section>
+{% endblock %}

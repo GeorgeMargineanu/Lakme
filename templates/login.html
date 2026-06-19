@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% block title %}Acces privat — Lakme{% endblock %}
+{% block head %}<meta name="robots" content="noindex, nofollow, noarchive">{% endblock %}
+{% block content %}
+<section class="login-gate shell">
+  <form class="login-card" method="post" autocomplete="on">
+    <p class="eyebrow">ACCES PRIVAT</p>
+    <h1>Mai întâi,<br>parola.</h1>
+    <p>Lakme este momentan în testare.</p>
+    {% if error %}<p class="form-error">{{ error }}</p>{% endif %}
+    <input type="hidden" name="csrf_token" value="{{ csrf_token }}">
+    <input type="hidden" name="next" value="{{ destination }}">
+    <label>Utilizator<input name="username" autocomplete="username" required autofocus></label>
+    <label>Parolă<input type="password" name="password" autocomplete="current-password" required></label>
+    <button class="button dark wide" type="submit">Intră pe site <span>→</span></button>
+  </form>
+</section>
+{% endblock %}

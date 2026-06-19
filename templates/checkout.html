@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% block title %}Finalizare comandă — {{ recipe.name }}{% endblock %}
+{% block content %}
+<section class="checkout shell">
+  <div class="checkout-copy reveal">
+    <p class="eyebrow">COMANDĂ FĂRĂ CONT</p><h1>O rețetă.<br>Un singur dolar.</h1>
+    <p>Ai ales <b>{{ recipe.name }}</b>. PDF-ul original cu ingredientele și indicațiile complete se deblochează imediat.</p>
+    <div class="mini-recipe {{ recipe.accent }}"><span>{{ recipe.emoji }}</span><div><small>{{ recipe.region }} · {{ recipe.diet }}</small><h3>{{ recipe.name }}</h3></div><b>$1.00</b></div>
+  </div>
+  <form class="payment-card reveal" method="post">
+    <div class="demo-notice"><b>DEMO LOCAL</b><span>Nu se procesează nicio plată reală. Poți folosi date de test.</span></div>
+    {% if error %}<p class="form-error">{{ error }}</p>{% endif %}
+    <label>Nume<input name="name" autocomplete="name" placeholder="Numele tău" required value="{{ request.form.get('name', '') }}"></label>
+    <label>Email<input type="email" name="email" autocomplete="email" placeholder="you@example.com" required value="{{ request.form.get('email', '') }}"></label>
+    <label>Numărul cardului<div class="input-wrap"><input inputmode="numeric" autocomplete="cc-number" placeholder="4242 4242 4242 4242" required maxlength="19"><span>VISA</span></div></label>
+    <div class="form-row"><label>Expiră<input placeholder="12 / 29" required></label><label>CVC<input inputmode="numeric" placeholder="123" required maxlength="4"></label></div>
+    <div class="total"><span>Total</span><b>$1.00 USD</b></div>
+    <button class="button dark wide" type="submit">Deblochează rețeta <span>→</span></button>
+    <p class="micro">Checkout demo · Datele cardului nu sunt stocate sau trimise</p>
+  </form>
+</section>
+{% endblock %}

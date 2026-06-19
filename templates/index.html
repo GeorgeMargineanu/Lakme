@@ -1,0 +1,60 @@
+{% extends "base.html" %}
+{% block content %}
+<section class="hero shell">
+  <div class="hero-copy reveal">
+    <p class="eyebrow">O REȚETĂ GROZAVĂ · UN DOLAR</p>
+    <h1>Hrănește-ți corpul.<br><em>Crizele existențiale<br>se rezolvă separat.</em></h1>
+    <p class="hero-lede">22 de rețete vegetariene inspirate din bucătării internaționale. Peste 30 g proteine, gramaje clare și mult gust.</p>
+    <a class="button dark" href="#recipes">Descoperă colecția <span>↓</span></a>
+  </div>
+  <div class="hero-art reveal">
+    <div class="hero-character">
+      <span class="hero-mood" role="img" aria-label="Față care se topește">🫠</span>
+      <span class="hero-knife" role="img" aria-label="Cuțit de bucătărie">🔪</span>
+    </div>
+  </div>
+</section>
+
+<section class="marquee" aria-hidden="true"><div>GĂTEȘTE CU CURAJ ✦ MĂNÂNCĂ ÎN TIHNĂ ✦ ÎMPARTE CU DRAG ✦ GĂTEȘTE CU CURAJ ✦ MĂNÂNCĂ ÎN TIHNĂ ✦ ÎMPARTE CU DRAG ✦</div></section>
+
+<section class="collection shell" id="recipes">
+  <div class="section-heading reveal">
+    <div><p class="eyebrow">REȚETELE LUI LAKME</p><h2>Alege-ți pofta.</h2></div>
+    <p>Filtrează după colțul lumii sau stilul farfuriei. Fiecare card deblochează rețeta originală pentru exact $1.</p>
+  </div>
+  <div class="filters reveal" aria-label="Filtrează rețetele">
+    <div class="filter-group" data-filter-group="region">
+      <span>Zonă</span><button class="active" data-value="all">Toate</button>
+      {% for region in recipes|map(attribute='region')|unique %}<button data-value="{{ region|lower }}">{{ region }}</button>{% endfor %}
+    </div>
+    <div class="filter-group" data-filter-group="diet">
+      <span>Stil</span><button class="active" data-value="all">Toate</button>
+      {% for diet in recipes|map(attribute='diet')|unique %}<button data-value="{{ diet|lower }}">{{ diet }}</button>{% endfor %}
+    </div>
+  </div>
+  <div class="recipe-grid">
+    {% for recipe in recipes %}
+    <article class="recipe-card reveal" data-region="{{ recipe.region|lower }}" data-diet="{{ recipe.diet|lower }}">
+      <a class="card-visual {{ recipe.accent }}" href="{{ url_for('recipe_detail', slug=recipe.slug) }}">
+        <span class="card-index">0{{ loop.index }}</span><span class="food-emoji">{{ recipe.emoji }}</span>
+        <span class="price-badge">$1</span>
+      </a>
+      <div class="card-meta"><span>{{ recipe.region }}</span><span>·</span><span>{{ recipe.cuisine }}</span><span>·</span><span>{{ recipe.nutrition }}</span></div>
+      <h3><a href="{{ url_for('recipe_detail', slug=recipe.slug) }}">{{ recipe.name }}</a></h3>
+      <p>{{ recipe.description }}</p>
+      <a class="text-link" href="{{ url_for('recipe_detail', slug=recipe.slug) }}">Vezi rețeta <span>↗</span></a>
+    </article>
+    {% endfor %}
+  </div>
+  <p class="empty-state" hidden>Nicio rețetă nu se potrivește. Încearcă altă combinație.</p>
+</section>
+
+<section class="how shell" id="how">
+  <div class="how-intro reveal"><p class="eyebrow">FĂRĂ ABONAMENT. FĂRĂ COMPLICAȚII.</p><h2>O cină mai bună<br>pentru mărunțiș.</h2></div>
+  <div class="steps reveal">
+    <div><b>01</b><h3>Alege</h3><p>Explorează colecția Lakme.</p></div>
+    <div><b>02</b><h3>Cumpără</h3><p>Plătești un dolar. Rețeta e a ta.</p></div>
+    <div><b>03</b><h3>Gătește</h3><p>Gramaje clare. Pași exacți. Mâncare foarte bună.</p></div>
+  </div>
+</section>
+{% endblock %}

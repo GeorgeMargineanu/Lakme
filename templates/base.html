@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="ro">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#11110f">
+  <meta name="description" content="Rețetele lui Lakme: vegetariene, internaționale și bogate în proteine.">
+  {% block head %}{% endblock %}
+  <title>{% block title %}Lakme — rețete care merită păstrate{% endblock %}</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+  <script defer src="{{ url_for('static', filename='js/app.js') }}"></script>
+</head>
+<body>
+  <div class="noise"></div>
+  <header class="nav shell">
+    <a class="logo lakme-logo" href="{{ url_for('index') }}" aria-label="Lakme acasă">LA<span>K</span>ME</a>
+    <nav>
+      <a href="{{ url_for('index') }}#recipes">Rețete</a>
+      <a href="{{ url_for('index') }}#how">Cum funcționează</a>
+    </nav>
+    <a class="nav-pill" href="{{ url_for('index') }}#recipes">Alege cina <span>↗</span></a>
+  </header>
+  <main>{% block content %}{% endblock %}</main>
+  <footer class="footer shell">
+    <a class="logo lakme-logo" href="{{ url_for('index') }}">LA<span>K</span>ME</a>
+    <p>Gătește ceva despre care merită să vorbești.</p>
+    <p>© {{ current_year }} Lakme</p>
+  </footer>
+</body>
+</html>
