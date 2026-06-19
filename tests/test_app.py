@@ -26,8 +26,13 @@ class SavrAppTests(unittest.TestCase):
         self.assertIn("Tocană orientală".encode(), home.data)
         self.assertIn(b"LA<span>K</span>ME", home.data)
         self.assertIn("Hrănește-ți corpul".encode(), home.data)
-        self.assertIn("🫠".encode(), home.data)
-        self.assertIn("🔪".encode(), home.data)
+        self.assertIn(b"images/venus_chef.png", home.data)
+        self.assertNotIn("🫠".encode(), home.data)
+        self.assertNotIn("🔪".encode(), home.data)
+
+        with self.client.get("/static/images/venus_chef.png") as hero_image:
+            self.assertEqual(hero_image.status_code, 200)
+            self.assertEqual(hero_image.mimetype, "image/png")
 
         recipe = self.client.get("/recipe/tajine-halloumi-naut")
         self.assertEqual(recipe.status_code, 200)
