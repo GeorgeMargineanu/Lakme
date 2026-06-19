@@ -4,7 +4,7 @@
 <section class="detail shell">
   <a class="back-link" href="{{ url_for('index') }}#recipes">← Înapoi la colecție</a>
   <div class="detail-grid">
-    <div class="detail-art {{ recipe.accent }} reveal"><span>{{ recipe.emoji }}</span><small>REȚETELE<br>LUI LAKME</small></div>
+    <div class="detail-art {{ recipe.accent }} reveal"><img class="detail-sticker" src="{{ url_for('static', filename=recipe.image) }}" alt="Pisică bucătar cu {{ recipe.name|lower }}" width="448" height="448"><small>REȚETELE<br>LUI LAKME</small></div>
     <div class="detail-copy reveal">
       <p class="eyebrow">{{ recipe.region }} · {{ recipe.cuisine }}</p>
       <h1>{{ recipe.name }}</h1>
